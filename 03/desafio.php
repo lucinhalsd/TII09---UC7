@@ -8,26 +8,25 @@ Crie um array multidimensional com 2 clientes, cada um contendo:
 */
 ?>
 
-<table border= "1">
+<table border = 2>
 <?php
-$clientes = [
-    ["nome" => "Luci"];
-    ["cpf" => "12345678900"];
-    ["cidade" => "Sao Paulo"];
-]
+$clientes [
+    [
+    "nome" => "Luci",
+    "cpf" => "12345678900",
+    "cidade" => "Sao Paulo",
+   ],
 
-    $clientes = [
-        ["nome" => "Carlos"];
-        ["cpf" => "98765432101"];
-        ["cidade" => "Cajamar"];
-];
+    [
+        "nome" => "Carlos",
+        "cpf" => "98765432101",
+        "cidade" => "Cajamar",
+    ],
+],
 
-foreach($clientes as $cliente) {
-    echo "
-    <tr>
-        <td>{$cliente['nome']}</td> "
-        "<td>($cliente[''] "</td>
-            </tr> .
-}
-
+    foreach($clientes as $c) {
+        echo "<tr><td>{$c['nome']}</td><td>{$c['cpf']}</td><td>{$c['cidade']}</td></tr>";
+    }
+?>
+</table>
 
