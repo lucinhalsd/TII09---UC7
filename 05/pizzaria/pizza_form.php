@@ -15,6 +15,7 @@ if(isset($_POST['sabor']) && isset($_POST['tamanho']) && isset($_POST['preco']))
 
     header("Location: index.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +23,7 @@ if(isset($_POST['sabor']) && isset($_POST['tamanho']) && isset($_POST['preco']))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cdastrar Pizza</title>
+    <title>Cadastrar Pizza</title>
 </head>
 <body>
     <h2>Cadastrar Nova Pizza</h2>

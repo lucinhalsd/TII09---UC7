@@ -1,10 +1,15 @@
 <?php
 
+require 'Database.php';
 require 'PizzaDAO.php';
 
+$meuBancoDeDados = new Database();
 $bd = new PizzaDAO();
 $pizzas = $bd->getAll();
 
+echo "<pre>";
+print_r($meuBancoDeDados->getAll());
+echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -12,21 +17,23 @@ $pizzas = $bd->getAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Pizzas</title>
+    <title>Lista de Pizzas</title>    
 </head>
 <body>
     <h2>Lista de Pizzas</h2>
 
-    <table border = "1"  cellpading>
-        <tr><th>Id</th><th>SABOR</th><th>PREÇO</th></tr>
-         <?php foreach($pizzas as $p):?>
+    <table border="1" cellpading="5">
+        <tr><th>ID</th><th>SABOR</th><th>TAMANHO</th><th>PREÇO</th></tr>
+        <?php foreach($pizzas as $p): ?>
             <tr>
-            <td><?= $p->getId() ?></td>
+                <td><?= $p->getId() ?></td>
                 <td><?= $p->getSabor() ?></td>
                 <td><?= $p->getTamanho() ?></td>
                 <td><?= $p->getPreco() ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
+    <br>
+    <a href="pizza_form.php">Cadastrar Nova</a>
 </body>
 </html>
