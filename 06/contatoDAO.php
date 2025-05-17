@@ -1,15 +1,15 @@
 <?php
 
-require_once "Database.php";
+require_once 'Database.php';
 require_once 'Contato.php';
 
-class contatoDAO
+class ContatoDAO
 {
-    private $db; // usado em todas as funçoes
+    private $db; // usado em todas as funções
 
     public function __construct()
     {
-       $this->db = Database::getInstance(); 
+        $this->db = Database::getInstance();        
     }
 
     public function getAll()
@@ -19,25 +19,46 @@ class contatoDAO
 
         while($row = $stmt->fetch(PDO::FETCH_ASSOC))
         {
-            $contatos[] = new Contato($row['id'], $row['nome']);
+            $contatos[] = new Contato($row['id'], $row['nome'], $row['telefone'], $row['email'], $row['endereco']);
         }
 
         return $contatos;
     }
-    public function create(Contato $contatos)
+
+    public function getById(int $id): ?contato
     {
-        $sql = "INSERT INTO contatos (nome) VALUES (:nome)";
+        $stmt = $this->db->prepare("SELECT * FROM agenda.contatos WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row ? new Contato(
+            $row['id'],
+            $row['nome'],
+            $row['telefone'],
+            $row['email'],
+            $row['endereco'])
+            : null;
+    }
+    
+    public function create(Contato $contato) 
+    {
+        $sql = "INSERT INTO contatos (nome, telefone, email, endereco) VALUES 
+	        (:nome, :telefone, :email, :endereco)";
         $stmt = $this->db->prepare($sql);
 
-        $nome = $contatos->getNome();
+        $nome = $contato->getNome();
+        $telefone = $contato->getTelefone();
+        $email = $contato->getEmail();
+        $endereco = $contato->getEndereco();
 
         $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':telefone', $telefone);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':endereco', $endereco);
         $stmt->execute();
-    }   
- }
+    }
+}
+?>
 
- $cont1 = new Contato(null, "Superman");
- $dao = new contatoDAO();
-
- $dao->create($cont1);
-
+ 

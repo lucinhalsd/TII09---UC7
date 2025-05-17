@@ -8,4 +8,4 @@ class Database
     }
 }
 
-$db = Database::getInstance();
+?>
