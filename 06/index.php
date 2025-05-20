@@ -36,7 +36,7 @@ $contatos = $dao->getAll();
                 <td>
                 <a href="contato_details.php?id=<?= $c->getId() ?>">Detalhes</a>
                     <a href="#">Editar</a>
-                    <a href="#">Excluir</a>
+                    <a href="contato_delete.php?id=<?= $c->getId() ?>">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>

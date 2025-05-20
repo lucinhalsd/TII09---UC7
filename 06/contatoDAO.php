@@ -25,9 +25,9 @@ class ContatoDAO
         return $contatos;
     }
 
-    public function getById(int $id): ?contato
+    public function delete(int $id): ?contato
     {
-        $stmt = $this->db->prepare("SELECT * FROM agenda.contatos WHERE id = :id");
+        $stmt = $this->db->delete("SELECT * FROM agenda.contatos WHERE id = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
