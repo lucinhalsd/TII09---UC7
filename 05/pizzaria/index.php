@@ -1,15 +1,12 @@
 <?php
 
-require 'Database.php';
-require 'PizzaDAO.php';
+require_once 'Conexao.php';
+require_once 'PizzaDAO.php';
 
-$meuBancoDeDados = new Database();
+$meuBancoDeDados = new Conexao();
 $bd = new PizzaDAO();
 $pizzas = $bd->getAll();
 
-echo "<pre>";
-print_r($meuBancoDeDados->getAll());
-echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -26,10 +23,12 @@ echo "</pre>";
         <tr><th>ID</th><th>SABOR</th><th>TAMANHO</th><th>PREÇO</th></tr>
         <?php foreach($pizzas as $p): ?>
             <tr>
-                <td><?= $p->getId() ?></td>
+                <td><?= $p->getId()  ?></td>
                 <td><?= $p->getSabor() ?></td>
                 <td><?= $p->getTamanho() ?></td>
                 <td><?= $p->getPreco() ?></td>
+                <td><a href="alterar_pizza.php">Alterar</a></td>
+                <td><a href="excluir_pizza.php">Excluir</a></td> 
             </tr>
         <?php endforeach; ?>
     </table>

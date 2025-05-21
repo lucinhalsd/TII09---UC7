@@ -2,7 +2,7 @@
 
 class Pizza
 {
-    private  $id;
+    private $id;
     private string $sabor;
     private string $tamanho;
     private float $preco;
@@ -44,5 +44,3 @@ class Pizza
         return "Pizza de $this->sabor e preco $this->preco <br>";
     }
 }
-   
-

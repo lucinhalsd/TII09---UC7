@@ -1,6 +1,7 @@
 <?php
 
 // SINGLETON - https://refactoring.guru/design-patterns/singleton
+
 class Conexao {
     private static $bd = null;
 

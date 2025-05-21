@@ -1,49 +1,51 @@
+--Selec para selecionar os dados (tudo que for antes from são atributos, tudo que for depois do from são tabelas)
+SELECT * FROM clientes;
+SELECT * FROM produtos;
 
-select * from clientes;
-select * from produtos;
+--nesta query chamo os atributos da tabela específica
+SELECT nome, email FROM clientes;
 
---Nesta query chamo os atributos da tabela específica
-select nome, email from clientes;
+--Nesta query posso multiplicar os valores da coluna com um número(12), o AS ajudar a organizar a forma como visualizar os dados da minha consulta. 
+SELECT produto, preco_unidade, preco_unidade * 12 FROM produtos;
+SELECT produto, preco_unidade, preco_unidade * 12 AS DUZIA FROM produtos;
 
---Nesta query posso multiplicar os valores da coluna com um número(12), o AS ajudar o organizar a forma como visualizar os dados da minha consulta
+-- ORDER BY é uma cláusula opcional de instrução, permitindo ordenar as linhas devolvidas pela instrução SELECT. Em ordem ascendente ou descendente. 
+SELECT produto FROM produtos ORDER BY produto ASC;
+SELECT nome, email, cidade FROM clientes ORDER BY nome ASC;
+SELECT nome, email, cidade FROM clientes ORDER BY cidade ASC;
+SELECT nome, email, cidade FROM clientes ORDER BY cidade, nome;
 
-select produto, preço_unidade, preço_unidade * 12 from produtos;
-select produto, preço_unidade, preço_unidade * 12 as duzia from produtos;
+-- Neste caso vamos filtrar a cidade em ordem decrescente e depois o bloco de pessoas que estão nesta categoria será colocada em ordem alfabetica. 
+SELECT nome, email, cidade FROM clientes ORDER BY cidade DESC, nome ASC;
 
--- Order BY é uma cláusula opcional de instruçao, permitindo ordenar as linhas devolvidas
---pela instrução SELECT. Em ordem ascendente ou descendente.
-select produto from produtos ORDER BY produto ASC;
-select nome, email, cidade from clientes ORDER BY nome ASC;
-select nome, email, cidade from clientes ORDER BY cidade ASC;
-select nome, email, cidade from clientes ORDER BY cidade , nome;
-
--- Nesta consulta vamos buscar a encomenda mais recente.
-select * from encomendas ORDER BY data_hora desc;
+--Nesta consulta vamos buscar a encomenda mais recente.
+SELECT * FROM encomendas ORDER BY data_hora DESC;
 
 -- Nesta consulta vamos buscar os 10 primeiros clientes
-select id, nome, email From clientes limit 10;
+SELECT id, nome, email FROM clientes LIMIT 10;
 
 -- Nesta consulta vamos buscar os 10 ultimos clientes
-select id, nome, email from clientes  ORDER BY id desc limit 10;
+SELECT id, nome, email FROM clientes ORDER BY id DESC LIMIT 10;
 
---
-select id, nome, email from clientes  limit 3  offset 10;
-select id, nome, email from clientes  limit 10, 3;
-select * from produtos ORDER BY preco_unidade desc limit 1;
+-- Nesta consulta vamos buscar ignorar os 10 primeiros e trazer os 3 seguintes.
+SELECT id, nome, email FROM clientes LIMIT 3 OFFSET 10;
+SELECT id, nome, email FROM clientes LIMIT 10, 3;
+SELECT * FROM produtos ORDER BY preco_unidade DESC LIMIT 1;
 
--- Where é uma condiçao de busca filtrada.
-select * from clientes WHERE cidade = "Lisboa";
+-- Where é uma condição de busca filtrada.
+-- Nesta vamos buscar todos os clientes da cidade de lisboa.
+SELECT * FROM clientes WHERE cidade = "Lisboa";
 
 -- Nesta vamos buscar todos os clientes do sexo masculino
-select * from clientes WHERE sexo = "m";
+SELECT * FROM clientes WHERE sexo = "m";
 
--- Usando os operdores lógicos
-select * from clientes WHERE cidade = "Lisboa" AND sexo = "m";
+-- Usando os operadores lógicos 
+SELECT * FROM clientes WHERE cidade = "Lisboa" AND sexo = "m";
 
 SELECT * FROM produtos WHERE preco_unidade <= 1;
 
--- Intervalo de preço
-SELECT * FROM produtos WHERE preco_unidade <= 1 And preco_unidade <= 2;
+--Intervalo de preço. 
+SELECT * FROM produtos WHERE preco_unidade >= 1 AND preco_unidade <= 2;
 
--- Nesta vamos buscar todos que morem em Lisboa ou que sejam do sexo masculino.
-SELECT nome, email, cidade FROM clientes  WHERE cidade = "Lisboa" OR sexo = "m";
+--Nesta vamos buscar todos que morem em Lisboa ou que sejam do sexo masculino.
+SELECT nome, email, cidade, sexo FROM clientes WHERE cidade = "Lisboa" OR sexo = "m";

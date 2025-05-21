@@ -1,7 +1,7 @@
 <?php
 
 require_once 'PizzaDAO.php';
-require_once 'Pizza.php';
+
 
 $dao = new PizzaDAO();
 

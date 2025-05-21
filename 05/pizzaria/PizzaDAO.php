@@ -1,6 +1,6 @@
 <?php
-require 'Pizza.php';
-require 'Conexao.php';
+require_once 'Pizza.php';
+require_once 'Conexao.php';
 
 class PizzaDAO
 {
@@ -41,4 +41,3 @@ class PizzaDAO
         $stmt->execute();
     }
 }
-    
