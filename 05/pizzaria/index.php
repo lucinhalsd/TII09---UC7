@@ -3,9 +3,11 @@
 require_once 'Conexao.php';
 require_once 'PizzaDAO.php';
 
-$meuBancoDeDados = new Conexao();
+$dao= new Conexao();
 $bd = new PizzaDAO();
-$pizzas = $bd->getAll();
+
+
+$pizza = null
 
 ?>
 

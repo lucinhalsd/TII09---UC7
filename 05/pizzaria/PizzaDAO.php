@@ -39,5 +39,7 @@ class PizzaDAO
         $stmt->bindParam(':tamanho', $tamanho );
         $stmt->bindParam(':preco', $preco);
         $stmt->execute();
-    }
+    }  
+
+    public function getByID(int ,)
 }
