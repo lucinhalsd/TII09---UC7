@@ -2,7 +2,6 @@
 
 class Produto
 {
-    // Tive dificuldade nessa interrogação
     private ?int $id;
     private string $nome;
     private float $preco;
