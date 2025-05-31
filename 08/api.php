@@ -73,6 +73,6 @@ if($metodo == 'POST' && $rota == 'cadastrar-body')
     exit;
 }
 
+
 http_response_code(404);
 echo json_encode(['erro' => 'Rota não encontrada']);
-
