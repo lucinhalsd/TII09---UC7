@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../model/Cliente.php';
-require_once __DIR__ . '/../Database.php';
+require_once __DIR__ . '/../model/Database.php';
 
 class ClienteDAO
 {
