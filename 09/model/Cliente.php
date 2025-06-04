@@ -1,36 +1,57 @@
 <?php
+require_once 'Database.php';
+require_once 'Cliente.php';
 
-class Cliente implements JsonSerializable
+class ClienteDAO
 {
-    private ?int $id;
-    private string $nome;
-    private string $cpf;
-    private string $dataDeNascimento;
-    private bool $ativo;
+    private $db;
 
-    public function __construct(?int $id, string $nome, string $cpf, string $dataDeNascimento, bool $ativo)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->nome = $nome;
-        $this->cpf = $cpf;
-        $this->dataDeNascimento = $dataDeNascimento;
-        $this->ativo = $ativo;
+        $this->db = Database::getInstance();
     }
 
-    public function getId(): ?int { return $this->id; }
-    public function getNome(): string { return $this->nome; }
-    public function getCpf(): string { return $this->cpf; }
-    public function getDataDeNascimento(): string { return $this->dataDeNascimento; }
-    public function getAtivo(): bool { return $this->ativo; }   
-
-    public function jsonSerialize(): mixed
+    public function getAll(): array
     {
-            return [
-                'id' => $this->id,
-                'nome' => $this->nome,
-                'cpf' => $this->cpf,
-                'dataDeNascimento' => $this->cpf,
-                'ativo' => $this->ativo,
-            ];
+        $stmt = $this->db->query("SELECT * FROM clientes");
+        $clientes = [];
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $clientes[] = new Cliente($row['id'], $row['nome'], $row['cpf'], $row['dataDeNascimento'], $row['ativo']);
+        }
+
+        return  $clientes;
+    }
+
+    public function getAllAlternativo(): array
+    {
+        $reulstado = $this->db->query("SELECT * FROM clientes")->fetchAll();
+        $clientes = [];
+
+        foreach($reulstado as $res)
+        {
+            $clientes[] = new Cliente($res['id'], $res['nome'], $res['cpf'], $res['dataDeNascimento'], $res['ativo']);
+        }
+
+        return  $clientes;
+    }
+
+    public function getById(int $id): ?Cliente
+    {
+        $stmt = $this->db->prepare("SELECT * FROM clientes WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row ? 
+            new Cliente($row['id'], $row['nome'], $row['cpf'], $row['dataDeNascimento'], $row['ativo'])
+            : null;
+    }
+
+    public function delete(int $id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM clientes WHERE id = :id");
+        $stmt->execute([':id' => $id]);
     }
 }

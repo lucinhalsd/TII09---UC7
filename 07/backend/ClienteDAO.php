@@ -1,7 +1,6 @@
 <?php
-
-require_once 'Cliente.php';
 require_once 'Database.php';
+require_once 'Cliente.php';
 
 class ClienteDAO
 {
@@ -15,23 +14,17 @@ class ClienteDAO
     public function getAll(): array
     {
         $stmt = $this->db->query("SELECT * FROM clientes");
-        $cliente = [];
+        $clientes = [];
 
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $cliente[] =  new Cliente(
-                $row['id'],
-                $row['nome'],
-                $row['cpf'],
-                $row['ativo'],
-                $row['dataDeNascimento'],
-                
-            );
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $clientes[] = new Cliente($row['id'], $row['nome'], $row['cpf'], $row['dataDeNascimento'], $row['ativo']);
         }
 
-        return $cliente;
+        return  $clientes;
     }
 
-   // public function getAllAlternativo(): array
+    public function getAllAlternativo(): array
     {
         $reulstado = $this->db->query("SELECT * FROM clientes")->fetchAll();
         $clientes = [];
@@ -43,34 +36,22 @@ class ClienteDAO
 
         return  $clientes;
     }
-}
 
-$dao =  new ClienteDAO();
-
-
-
-
-   
-public function getById(int $id): ?Cliente
+    public function getById(int $id): ?Cliente
     {
-        $sql = "SELECT * FROM cliente  WHERE id = :id";
-
-        $stmt = $this->db->prepare("SELECT * FROM cliente  WHERE id = :id";
-);        
+        $stmt = $this->db->prepare("SELECT * FROM clientes WHERE id = :id");
         $stmt->execute([':id' => $id]);
+
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row? new Cliente(     //Tive dificuldade nesse return
-            $row['id'],
-            $row['nome'],
-            $row['ativo'],
-            $row['dataDeNascimento'],
-           
-        ) : null;  //retorna null se não encontrar o cliente
+
+        return $row ? 
+            new Cliente($row['id'], $row['nome'], $row['cpf'], $row['dataDeNascimento'], $row['ativo'])
+            : null;
     }
 
-     public function delete(int $id): void
+    public function delete(int $id)
     {
         $stmt = $this->db->prepare("DELETE FROM clientes WHERE id = :id");
         $stmt->execute([':id' => $id]);
     }
-
+}
