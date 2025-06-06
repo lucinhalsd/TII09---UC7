@@ -29,14 +29,15 @@ class Produto implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return [
-            'id' => $this->id,
-          'nome' => $this-> nome,
-          'preco' => $this -> preco,
-          'ativo' => $this->tivo,
-          'dataDeCadastro' => $this->dataDeCadastro,
-          'dataDeValidade' => $this->dataDeValidade
-        
-        ];
+        {
+            return [
+                'id' => $this->id,
+                'nome' => $this->nome,
+                'preco' => $this->preco,
+                'ativo' => $this->ativo,
+                'dataDeCadastro' => $this->dataDeCadastro,
+                'dataDeValidade' => $this->dataDeValidade
+            ];
+        }
     }
 }

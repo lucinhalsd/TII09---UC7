@@ -16,10 +16,9 @@ class usuario{
       $this->token = $token;
     }
         
+    public function getId(): ?int { return $this->id; }
+    public function getNome(): string { return $this->nome; }
+    public function getSenha(): string { return $this->senha; }
+    public function getEmail(): string { return $this->email; }
+    public function getToken(): ?string { return $this->token; }
 }
-
- $senha = $_GET['senha'];
- $senha_cripto = password_hash($senha, PASSWORD_DEFAULT);
- echo $senha_cripto; 
-
- $token = bin2hex(random_bytes(25));
