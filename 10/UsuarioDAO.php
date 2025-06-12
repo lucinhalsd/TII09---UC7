@@ -25,15 +25,24 @@ class UsuarioDAO
         ]);
     }
 
-    public function getByEmail( string $email) : ?UsuarioDAO
+    public function getByToken( string $email) : ?Usuario
     {
-        $stmt = $this->db->prepare("SELECT * FROM usuario WHERE email = :email");
-        $stmt->execute([':email' => $email]);
+        $stmt = $this->db->prepare("SELECT * FROM usuario WHERE token = :token");
+        $stmt->execute([':token' => $email]);
         $data = $stmt->fetch();
 
         return $data ? 
         new Usuario($data['id'], $data['nome'], $data['senha'], $data['email'], $data['token'])
         : null;
+    }
+    public function updateToken(int $id, ? string $token): bool
+    {
+        $sql = "UPDATE usuario SET token - :token WHERE is = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            ':token' => $token,
+            ':id' => $id,
+        ]);
     }
 }
 
