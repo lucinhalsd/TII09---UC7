@@ -1,7 +1,7 @@
 <?php
 
-require_once 'Database.php';
 require_once 'Usuario.php';
+require_once 'Database.php';
 
 class UsuarioDAO
 {
@@ -9,36 +9,34 @@ class UsuarioDAO
 
     public function __construct()
     {
-        $this->db = Database::getInstance();
+       $this->db = Database :: getInstance() ;
     }
-
+    
     public function create(Usuario $usuario)
     {
-        $sql = "INSERT INTO usuario (nome, senha, email, token) VALUES (:nome, :senha, :email, :token)";
+        $sql = "INSERT INTO usuario(nome, senha, email, token) VALUES (:nome, :nome, :email, :token)";
         $stmt = $this->db->prepare($sql);
-
-        return $stmt->execute([
+        return $sql->execute(
+        [
             ':nome' => $usuario->getNome(),
             ':senha' => $usuario->getSenha(),
             ':email' => $usuario->getEmail(),
             ':token' => $usuario->getToken(),
         ]);
     }
-
-    public function getByEmail(string $email) : ?Usuario
-    {
-        $stmt = $this->db->prepare("SELECT * FROM usuario WHERE email = :email");
+        public function getEmail(string $email): ? Usuario
+        {
+            $stmt = $this->db->prepare("SELECT * FROM usuario WHERE email = :email");
         $stmt->execute([':email' => $email]);
         $data = $stmt->fetch();
 
         return $data ?
             new Usuario($data['id'], $data['nome'], $data['senha'], $data['email'], $data['token'])
             : null;
-    }
-
-
-    public function getByToken(string $token) : ?Usuario
-    {
+        }
+          
+        public function getToken(INT $token): ? usuario
+        {
         $stmt = $this->db->prepare("SELECT * FROM usuario WHERE token = :token");
         $stmt->execute([':token' => $token]);
         $data = $stmt->fetch();
@@ -46,15 +44,15 @@ class UsuarioDAO
         return $data ?
             new Usuario($data['id'], $data['nome'], $data['senha'], $data['email'], $data['token'])
             : null;
-    }
+        }
 
-    public function updateToken(int $id, ?string $token): bool
-    {
-        $sql = "UPDATE usuario SET token = :token WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([
-            ':token' => $token,
-            ':id' => $id
-        ]);
-    }
-}
+         public function updateToken(int $id, ? string $token): bool
+         {
+            $stmt = $this->db->prepare("UPDATE usuario SET token = :token WHERE id = :id");
+            return $stmt->execute([
+                ':token' => $token,
+                ':id' => $id
+            ])
+         }
+         
+        }

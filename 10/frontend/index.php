@@ -8,11 +8,16 @@ $isLogged = isset($_SESSION['token']);
 
 <nav>
     <a href="index.php">Home</a>
-    <?php if($isLogged); ?>
-    <a href="index.php">Minha Conta</a>
-    <a href="cadastro.php"> Sair</a>
+    <?php if ($isLogged): ?>
+        <a href="usuario.php">Minha Conta</a>
+        <a href="logout.php">Sair</a>
     <?php else: ?>
-    <a href="login.php">Login</a>
-    <a href="index.php">Cadastrar</a>
+        <a href="login.php">Login</a>
+        <a href="cadastro.php">Cadastrar</a>
+    <?php endif; ?>
 </nav>
-<p>Bem-vindo ao sistema</p>
+<p>Bem-vindo ao sistema!</p>
+
+<?php if(isset($_SESSION['token'])): ?>
+    <a href="protegida.php">Página Protegida</a>
+<?php endif; ?>

@@ -8,35 +8,34 @@ if(isset($_SESSION['token']))
     exit();
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST')
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $SENHA = filter_input(INPUT_POST, 'senha');
+    $senha = filter_input(INPUT_POST, 'senha');
 
     $dao = new UsuarioDAO();
-    $Usuario = $dao->getByEmail($email);
+    $usuario = $dao->getByEmail($email);
 
-    if($Usuario && password_verify($senha, $Usuario->getSenha()))
+    if($usuario && password_verify($senha, $usuario->getSenha()))
     {
-       $token = bin2hex(random_bytes(25));
-       $_SESSION['token'] = $token; // Armazenar o token na seção
-       $dao->updateToken($usuario->getId(), $tpken);
-       header('Location: index.php'); // Redirecionar para a paqgina inicial
-       exit();
-    }
-    else
+        $token = bin2hex(random_bytes(25));
+        $_SESSION['token'] = $token;
+        $dao->updateToken($usuario->getId(), $token);
+        header('Location: index.php');
+        exit();
+    } 
+    else 
     {
-        $erro = "Email ou senha invalidos!";
+        $erro = "Email ou senha inválidos!";
     }
 }
 
 ?>
 
 <h1>Login</h1>
-<?php if(isset($erro)) echo "<p style = 'color:red'>$erro</p>"; ?>
-
+<?php if (isset($erro)) echo "<p style='color:red'>$erro</p>"; ?>
 <form method="POST">
-    Email: <input type="email" name="email" require ><br>
-    Senha:  <input type="passwoard" nome ="senha" require ><br>
-    <button type = "submit">Entrar</button>
+    Email: <input type="email" name="email" required><br>
+    Senha: <input type="password" name="senha" required><br>
+    <button type="submit">Entrar</button>
 </form>

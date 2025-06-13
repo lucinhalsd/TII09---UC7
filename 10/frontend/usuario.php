@@ -23,6 +23,6 @@ if(!$user)
 
 <h1>Minha Conta</h1>
 
-<p>Nome: <?= $usuario->getNome() ?></p>
-<P>Email: <?= $user->getEmail() ?></p>
+<p>Nome: <?= $user->getNome() ?></p>
+<p>Email: <?= $user->getEmail() ?></p>
 <a href="index.php">Voltar</a>
