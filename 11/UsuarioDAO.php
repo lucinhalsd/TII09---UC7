@@ -1,7 +1,7 @@
 <?php
 
-require_once 'Usuario.php';
-require_once 'Database.php';
+require_once '../model/Usuario.php';
+require_once '../core/Database.php';
 
 class UsuarioDAO
 {
@@ -16,7 +16,7 @@ class UsuarioDAO
     {
         $sql = "INSERT INTO usuario(nome, senha, email, token) VALUES (:nome, :nome, :email, :token)";
         $stmt = $this->db->prepare($sql);
-        return $sql->execute(
+        return $stmt->execute(
         [
             ':nome' => $usuario->getNome(),
             ':senha' => $usuario->getSenha(),
@@ -24,7 +24,7 @@ class UsuarioDAO
             ':token' => $usuario->getToken(),
         ]);
     }
-        public function getEmail(string $email): ? Usuario
+        public function getByEmail(string $email): ? Usuario
         {
             $stmt = $this->db->prepare("SELECT * FROM usuario WHERE email = :email");
         $stmt->execute([':email' => $email]);
@@ -52,7 +52,7 @@ class UsuarioDAO
             return $stmt->execute([
                 ':token' => $token,
                 ':id' => $id
-            ])
-         }
+            ]);
          
         }
+    }

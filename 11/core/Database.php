@@ -1,23 +1,22 @@
 <?php
 
-class Database{
-
+class Database
+{
     public static function getInstance()
     {
         $db_host = "localhost";
-        $db_nome = "projeto"
+        $db_name = "venda";
         $db_user = "root";
         $db_pass = "";
-    }
 
-    try {
-        $pdo = new PDO("mysql:host={$db_host};dbname=$db_name;", $db_user, $db_pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        return $pdo;
-    } catch (PDOException $e) {
-        // Em produção, gravar isso em um LOG
-        die("Erro de conexão com o banco: " . $e->getMessage());
+        try {
+            $pdo = new PDO("mysql:host={$db_host};dbname=$db_name;", $db_user, $db_pass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            return $pdo;
+        } catch (PDOException $e) {
+            // Em produção, gravar isso em um LOG
+            die("Erro de conexão com o banco: " . $e->getMessage());
+        }
     }
-
 }
