@@ -5,7 +5,7 @@ require_once 'Database.php';
 
 class ProdutoDAO
 {
-    private $db;
+    private PDO $db;
 
     public function __construct()
     {

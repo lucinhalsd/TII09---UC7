@@ -1,11 +1,11 @@
 <?php
 
-require_once 'Database.php';
-require_once 'Usuario.php';
+require_once __DIR__ . '/../core/Database.php';
+require_once __DIR__ . '/../model/Usuario.php';
 
 class UsuarioDAO
 {
-    private PDO $db;
+    private $db;
 
     public function __construct()
     {
@@ -35,7 +35,6 @@ class UsuarioDAO
             new Usuario($data['id'], $data['nome'], $data['senha'], $data['email'], $data['token'])
             : null;
     }
-
 
     public function getByToken(string $token) : ?Usuario
     {
