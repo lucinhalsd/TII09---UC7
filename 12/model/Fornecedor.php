@@ -17,7 +17,7 @@ class Fornecedor
     
     public function getId(): ?int { return $this->id;}
     public function getNome(): string { return $this->nome;}
-    public function getCpnj(): ?string { return $this->cnpj;}
+    public function getCnpj(): ?string { return $this->cnpj;}
     public function getContato(): ?string  { return $this->contato;}
 }
 
